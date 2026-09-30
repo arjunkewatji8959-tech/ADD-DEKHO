@@ -1,6 +1,37 @@
 {
-  "admin": {"id":"ADMIN-001","name":"Add Dekho K Admin","email":"admin@adddekhok.local","password":"Admin@123","role":"admin"},
-  "users": [],
+  "admin": {
+    "id": "ADMIN-001",
+    "name": "Add Dekho K Admin",
+    "email": "admin@adddekhok.local",
+    "password": "Admin@123",
+    "role": "admin"
+  },
+  "users": [
+    {
+      "id": "VW-MUNZQJ9U-800E",
+      "name": "Test Viewer",
+      "email": "v@test.com",
+      "password": "1234",
+      "role": "viewer",
+      "parentId": "ADMIN-001",
+      "approved": true,
+      "createdAt": "2026-09-30T10:57:06.834Z",
+      "balance": 0,
+      "adsWatched": 0
+    },
+    {
+      "id": "CL-MUNZQJ9X-5CF0",
+      "name": "Test Client",
+      "email": "c@test.com",
+      "password": "1234",
+      "role": "client",
+      "parentId": "ADMIN-001",
+      "approved": true,
+      "createdAt": "2026-09-30T10:57:06.837Z",
+      "balance": 0,
+      "adsWatched": 0
+    }
+  ],
   "ads": [],
   "payments": [],
   "withdrawals": []
