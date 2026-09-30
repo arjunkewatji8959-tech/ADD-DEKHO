@@ -1,0 +1,8 @@
+{
+  "name": "watchreward-demo",
+  "version": "4.0.0",
+  "private": true,
+  "description": "WatchReward demo with server-side ad management",
+  "scripts": {"start": "node server.js"},
+  "engines": {"node": ">=18"}
+}

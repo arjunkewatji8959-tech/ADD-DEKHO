@@ -1,0 +1,7 @@
+{
+  "admin": {"id":"ADMIN-001","name":"Add Dekho K Admin","email":"admin@adddekhok.local","password":"Admin@123","role":"admin"},
+  "users": [],
+  "ads": [],
+  "payments": [],
+  "withdrawals": []
+}
