@@ -601,7 +601,7 @@ input {
 
 /* Only the QR control / QR itself stays separate from the ticket. */
 .qr-control-section {
-  padding: 14px 10px 0;
+  padding: 28px 10px 0;
 }
 
 .qr-button {
