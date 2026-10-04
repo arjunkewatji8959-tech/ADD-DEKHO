@@ -1,115 +1,639 @@
-*{box-sizing:border-box}
-body{margin:0;background:#edf3f5;font-family:Arial,Helvetica,sans-serif;color:#263238}
-.app{width:min(1100px,94%);margin:25px auto;display:grid;grid-template-columns:1fr 440px;gap:28px;align-items:start}
-.booking-panel{background:#fff;border-radius:18px;padding:28px;box-shadow:0 12px 40px #00000018}
-.brand{color:#079d8f;font-weight:800;font-size:17px}
-h1{margin:12px 0 5px}.booking-panel p{color:#708087}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-label{font-size:13px;font-weight:700;color:#607078}
-input{width:100%;margin-top:6px;padding:12px;border:1px solid #d3dee2;border-radius:9px;font-size:15px}
-.booking-panel form button{width:100%;border:0;border-radius:10px;padding:14px;margin-top:20px;background:#08bca8;color:#fff;font-weight:800;cursor:pointer}
+* {
+  box-sizing: border-box
+}
 
-.ticket-wrap{display:flex;justify-content:center}
-.ticket{width:440px;background:#08c1ad;border-radius:18px;padding-bottom:12px;overflow:hidden;box-shadow:0 18px 45px #00000022}
-.topbar{height:62px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;color:#fff}
-.close-btn{width:34px;height:34px;border:0;background:transparent;color:#fff;font-size:32px;line-height:30px;padding:0;margin:0;cursor:pointer;font-weight:300}
-.top-links{display:flex;gap:22px;font-size:12px;font-weight:700}
-.ticket-card{margin:0 10px;background:#f9fcfc;border-radius:4px 4px 13px 13px;overflow:hidden}
-.company{background:#f4511e;color:#fff;text-align:center;padding:12px 5px;font-size:17px;font-weight:800}
-.ticket-content{position:relative;padding:20px 18px 10px;min-height:0}
-.summary{display:grid;grid-template-columns:1fr 1fr 1fr}
-.summary small,.times small{display:block;color:#78909c;font-size:12px;margin-bottom:5px}
-.summary strong{font-size:20px}.center{text-align:center}.right{text-align:right}
-.route{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;text-align:center;font-size:18px;margin:27px 0 25px}
-.route b{font-size:25px}
-.dashed{border-top:2px dashed #c5ced1;margin:17px 0 22px}
-.cut{position:absolute;width:26px;height:52px;background:#08c1ad;border-radius:50%;top:174px}
-.cut-left{left:-14px}.cut-right{right:-14px}
-.times{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.times b{font-size:13px}
-.ticket-id{text-align:center;margin:23px 0;color:#37474f;font-weight:700;letter-spacing:1px}
-.logo-area{height:205px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.outer-ring,.inner-ring{display:none}
-.pmpml-logo{width:184px;height:184px;object-fit:contain;position:relative;z-index:2}
-.expiry{text-align:center;margin:6px 0 5px;font-size:14px}
-.expiry span{font-weight:800}
-.qr-button{width:calc(100% - 20px);margin:10px 10px 0;border:0;border-radius:9px;background:#f7ffff;color:#079d8f;padding:14px;font-size:16px;font-weight:800;cursor:pointer}
+body {
+  margin: 0;
+  background: #edf3f5;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #263238
+}
 
-@media(max-width:850px){.app{grid-template-columns:1fr}.ticket-wrap{order:-1}.booking-panel{position:static}}
-@media(max-width:480px){.app{width:100%;margin:0}.booking-panel{border-radius:0}.grid{grid-template-columns:1fr}.ticket{width:100%;border-radius:0}.topbar{font-size:11px}.ticket-content{min-height:0;padding:20px 15px}.route{font-size:15px}.company{font-size:15px}}
+.app {
+  width: min(1100px, 94%);
+  margin: 25px auto;
+  display: grid;
+  grid-template-columns: 1fr 440px;
+  gap: 28px;
+  align-items: start
+}
+
+.booking-panel {
+  background: #fff;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 12px 40px #00000018
+}
+
+.brand {
+  color: #079d8f;
+  font-weight: 800;
+  font-size: 17px
+}
+
+h1 {
+  margin: 12px 0 5px
+}
+
+.booking-panel p {
+  color: #708087
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px
+}
+
+label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #607078
+}
+
+input {
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px;
+  border: 1px solid #d3dee2;
+  border-radius: 9px;
+  font-size: 15px
+}
+
+.booking-panel form button {
+  width: 100%;
+  border: 0;
+  border-radius: 10px;
+  padding: 14px;
+  margin-top: 20px;
+  background: #08bca8;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer
+}
+
+.ticket-wrap {
+  display: flex;
+  justify-content: center
+}
+
+.ticket {
+  width: 440px;
+  background: #08c1ad;
+  border-radius: 18px;
+  padding-bottom: 12px;
+  overflow: hidden;
+  box-shadow: 0 18px 45px #00000022
+}
+
+.topbar {
+  height: 62px;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff
+}
+
+.close-btn {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 32px;
+  line-height: 30px;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-weight: 300
+}
+
+.top-links {
+  display: flex;
+  gap: 22px;
+  font-size: 12px;
+  font-weight: 700
+}
+
+.ticket-card {
+  margin: 0 10px;
+  background: #f9fcfc;
+  border-radius: 4px 4px 13px 13px;
+  overflow: hidden
+}
+
+.company {
+  background: #f4511e;
+  color: #fff;
+  text-align: center;
+  padding: 12px 5px;
+  font-size: 17px;
+  font-weight: 800
+}
+
+.ticket-content {
+  position: relative;
+  padding: 20px 18px 10px;
+  min-height: 0
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr
+}
+
+.summary small,
+.times small {
+  display: block;
+  color: #78909c;
+  font-size: 12px;
+  margin-bottom: 5px
+}
+
+.summary strong {
+  font-size: 20px
+}
+
+.center {
+  text-align: center
+}
+
+.right {
+  text-align: right
+}
+
+.route {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 10px;
+  align-items: center;
+  text-align: center;
+  font-size: 18px;
+  margin: 27px 0 25px
+}
+
+.route b {
+  font-size: 25px
+}
+
+.dashed {
+  border-top: 2px dashed #c5ced1;
+  margin: 17px 0 22px
+}
+
+.cut {
+  position: absolute;
+  width: 26px;
+  height: 52px;
+  background: #08c1ad;
+  border-radius: 50%;
+  top: 174px
+}
+
+.cut-left {
+  left: -14px
+}
+
+.cut-right {
+  right: -14px
+}
+
+.times {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px
+}
+
+.times b {
+  font-size: 13px
+}
+
+.ticket-id {
+  text-align: center;
+  margin: 23px 0;
+  color: #37474f;
+  font-weight: 700;
+  letter-spacing: 1px
+}
+
+.logo-area {
+  height: 205px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden
+}
+
+.outer-ring,
+.inner-ring {
+  display: none
+}
+
+.pmpml-logo {
+  width: 184px;
+  height: 184px;
+  object-fit: contain;
+  position: relative;
+  z-index: 2
+}
+
+.expiry {
+  text-align: center;
+  margin: 6px 0 5px;
+  font-size: 14px
+}
+
+.expiry span {
+  font-weight: 800
+}
+
+.qr-button {
+  width: calc(100% - 20px);
+  margin: 10px 10px 0;
+  border: 0;
+  border-radius: 9px;
+  background: #f7ffff;
+  color: #079d8f;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer
+}
+
+@media(max-width:850px) {
+  .app {
+    grid-template-columns: 1fr
+  }
+
+  .ticket-wrap {
+    order: -1
+  }
+
+  .booking-panel {
+    position: static
+  }
+}
+
+@media(max-width:480px) {
+  .app {
+    width: 100%;
+    margin: 0
+  }
+
+  .booking-panel {
+    border-radius: 0
+  }
+
+  .grid {
+    grid-template-columns: 1fr
+  }
+
+  .ticket {
+    width: 100%;
+    border-radius: 0
+  }
+
+  .topbar {
+    font-size: 11px
+  }
+
+  .ticket-content {
+    min-height: 0;
+    padding: 20px 15px
+  }
+
+  .route {
+    font-size: 15px
+  }
+
+  .company {
+    font-size: 15px
+  }
+}
 
 
 /* PMPML ticket refinements */
-.ticket-card{position:relative}
-.pmpml-logo{animation:logoMove 2.6s ease-in-out infinite;transform-origin:center center}
-@keyframes logoMove{0%,100%{transform:translate(0,0) scale(.94)}25%{transform:translate(-7px,-4px) scale(1.01)}50%{transform:translate(7px,3px) scale(1.06)}75%{transform:translate(-4px,5px) scale(1.01)}}
-.ticket-status{text-align:center;font-size:11px;font-weight:900;letter-spacing:1.3px;color:#008c7c;margin:3px 0 2px}
-.ticket-status.invalid{color:#d62828}
-.ticket-card.expired .company{filter:grayscale(.25);opacity:.85}
-.ticket-card.expired .qr-button{opacity:.5;cursor:not-allowed}
-.qr-button{margin-top:8px}
-.qr-section{display:none;background:#f9fcfc;margin:10px;border-radius:12px;padding:18px 12px 20px;text-align:center;box-shadow:0 6px 18px #00000014}
-.qr-section.open{display:block}
-.qr-box{background:#fff;border:1px solid #d5e0e2;border-radius:12px;padding:16px;width:min(260px,100%);margin:auto;box-shadow:0 5px 16px #00000012}
-.qr-title{font-size:15px;font-weight:800;color:#263238;margin-bottom:12px}
-#qrcode{display:flex;justify-content:center;align-items:center;min-height:170px}
-#qrcode img{display:block;background:#fff;padding:0;border-radius:0;margin:auto}
-.qr-label{font-size:11px;color:#607d86;margin-top:10px;font-weight:700;letter-spacing:.4px}
-
-/* Separate expiry and QR sections below the ticket card */
-.expiry-section{padding:10px 10px 0}
-.expiry-box{background:#f9fcfc;border-radius:12px;padding:14px 12px;text-align:center;box-shadow:0 6px 18px #00000014}
-.expiry{margin:0;font-size:15px;color:#263238}
-.expiry span{font-weight:900;letter-spacing:.4px}
-.ticket-status{margin-top:7px}
-.qr-control-section{padding:14px 10px 0}
-.qr-button{display:block;width:100%;margin:0;border:0;border-radius:12px;background:#f9ffff;color:#079d8f;padding:15px;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 6px 18px #00000014}
-.qr-button:hover{transform:translateY(-1px)}
-.qr-section{margin:14px 10px 4px}
-
-/* Logo moves in different directions and gently grows/shrinks */
-.pmpml-logo{animation:logoMove 3.8s ease-in-out infinite;transform-origin:center center;will-change:transform}
-@keyframes logoMove{
-  0%{transform:translate(0,0) scale(.82) rotate(-1deg)}
-  15%{transform:translate(-9px,-6px) scale(.94) rotate(1deg)}
-  32%{transform:translate(10px,-3px) scale(1.04) rotate(-1deg)}
-  50%{transform:translate(5px,9px) scale(.86) rotate(1deg)}
-  68%{transform:translate(-11px,5px) scale(1.08) rotate(-1deg)}
-  84%{transform:translate(7px,-7px) scale(.96) rotate(1deg)}
-  100%{transform:translate(0,0) scale(.82) rotate(-1deg)}
+.ticket-card {
+  position: relative
 }
 
-@media(max-width:480px){
-  .expiry-section,.qr-control-section{padding-left:8px;padding-right:8px}
-  .qr-section{margin-left:8px;margin-right:8px}
+.pmpml-logo {
+  animation: logoMove 2.6s ease-in-out infinite;
+  transform-origin: center center
+}
+
+@keyframes logoMove {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(.94)
+  }
+
+  25% {
+    transform: translate(-7px, -4px) scale(1.01)
+  }
+
+  50% {
+    transform: translate(7px, 3px) scale(1.06)
+  }
+
+  75% {
+    transform: translate(-4px, 5px) scale(1.01)
+  }
+}
+
+.ticket-status {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.3px;
+  color: #008c7c;
+  margin: 3px 0 2px
+}
+
+.ticket-status.invalid {
+  color: #d62828
+}
+
+.ticket-card.expired .company {
+  filter: grayscale(.25);
+  opacity: .85
+}
+
+.ticket-card.expired .qr-button {
+  opacity: .5;
+  cursor: not-allowed
+}
+
+.qr-button {
+  margin-top: 8px
+}
+
+.qr-section {
+  display: none;
+  background: #f9fcfc;
+  margin: 10px;
+  border-radius: 12px;
+  padding: 18px 12px 20px;
+  text-align: center;
+  box-shadow: 0 6px 18px #00000014
+}
+
+.qr-section.open {
+  display: block
+}
+
+.qr-box {
+  background: #fff;
+  border: 1px solid #d5e0e2;
+  border-radius: 12px;
+  padding: 16px;
+  width: min(260px, 100%);
+  margin: auto;
+  box-shadow: 0 5px 16px #00000012
+}
+
+.qr-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #263238;
+  margin-bottom: 12px
+}
+
+#qrcode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 170px
+}
+
+#qrcode img {
+  display: block;
+  background: #fff;
+  padding: 0;
+  border-radius: 0;
+  margin: auto
+}
+
+.qr-label {
+  font-size: 11px;
+  color: #607d86;
+  margin-top: 10px;
+  font-weight: 700;
+  letter-spacing: .4px
+}
+
+/* Separate expiry and QR sections below the ticket card */
+.expiry-section {
+  padding: 10px 10px 0
+}
+
+.expiry-box {
+  background: #f9fcfc;
+  border-radius: 12px;
+  padding: 14px 12px;
+  text-align: center;
+  box-shadow: 0 6px 18px #00000014
+}
+
+.expiry {
+  margin: 0;
+  font-size: 15px;
+  color: #263238
+}
+
+.expiry span {
+  font-weight: 900;
+  letter-spacing: .4px
+}
+
+.ticket-status {
+  margin-top: 7px
+}
+
+.qr-control-section {
+  padding: 14px 10px 0
+}
+
+.qr-button {
+  display: block;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-radius: 12px;
+  background: #f9ffff;
+  color: #079d8f;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 18px #00000014
+}
+
+.qr-button:hover {
+  transform: translateY(-1px)
+}
+
+.qr-section {
+  margin: 14px 10px 4px
+}
+
+/* Logo moves in different directions and gently grows/shrinks */
+.pmpml-logo {
+  animation: logoMove 3.8s ease-in-out infinite;
+  transform-origin: center center;
+  will-change: transform
+}
+
+@keyframes logoMove {
+  0% {
+    transform: translate(0, 0) scale(.82) rotate(-1deg)
+  }
+
+  15% {
+    transform: translate(-9px, -6px) scale(.94) rotate(1deg)
+  }
+
+  32% {
+    transform: translate(10px, -3px) scale(1.04) rotate(-1deg)
+  }
+
+  50% {
+    transform: translate(5px, 9px) scale(.86) rotate(1deg)
+  }
+
+  68% {
+    transform: translate(-11px, 5px) scale(1.08) rotate(-1deg)
+  }
+
+  84% {
+    transform: translate(7px, -7px) scale(.96) rotate(1deg)
+  }
+
+  100% {
+    transform: translate(0, 0) scale(.82) rotate(-1deg)
+  }
+}
+
+@media(max-width:480px) {
+
+  .expiry-section,
+  .qr-control-section {
+    padding-left: 8px;
+    padding-right: 8px
+  }
+
+  .qr-section {
+    margin-left: 8px;
+    margin-right: 8px
+  }
 }
 
 
 /* Final ticket layout refinements */
-.logo-area{height:205px;overflow:hidden;}
-.pmpml-logo{width:184px;height:184px;object-fit:contain;animation:logoPulse .95s ease-in-out infinite;transform-origin:center center;will-change:transform;}
-@keyframes logoPulse{
-  0%,100%{transform:scale(.78);}
-  25%{transform:scale(.88);}
-  50%{transform:scale(1.06);}
-  72%{transform:scale(.96);}
+.logo-area {
+  height: 205px;
+  overflow: hidden;
+}
+
+.pmpml-logo {
+  width: 184px;
+  height: 184px;
+  object-fit: contain;
+  animation: logoPulse .95s ease-in-out infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+@keyframes logoPulse {
+
+  0%,
+  100% {
+    transform: scale(.78);
+  }
+
+  25% {
+    transform: scale(.88);
+  }
+
+  50% {
+    transform: scale(1.06);
+  }
+
+  72% {
+    transform: scale(.96);
+  }
 }
 
 /* Keep expiry + VALID together inside the ticket. */
-.ticket-expiry{margin:4px -18px 0;padding:12px 18px 15px;border-top:1px dashed #c5ced1;text-align:center;background:#f9fcfc;}
-.ticket-expiry .expiry{margin:0;font-size:15px;color:#263238;}
-.ticket-expiry .expiry span{font-weight:900;letter-spacing:.4px;}
-.ticket-expiry .ticket-status{margin:7px 0 0;font-size:12px;font-weight:900;letter-spacing:1.2px;color:#008c7c;}
-.ticket-expiry .ticket-status.invalid{color:#d62828;}
+.ticket-expiry {
+  margin: 4px -18px 0;
+  padding: 12px 18px 15px;
+  border-top: 1px dashed #c5ced1;
+  text-align: center;
+  background: #f9fcfc;
+}
+
+.ticket-expiry .expiry {
+  margin: 0;
+  font-size: 15px;
+  color: #263238;
+}
+
+.ticket-expiry .expiry span {
+  font-weight: 900;
+  letter-spacing: .4px;
+}
+
+.ticket-expiry .ticket-status {
+  margin: 7px 0 0;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  color: #008c7c;
+}
+
+.ticket-expiry .ticket-status.invalid {
+  color: #d62828;
+}
 
 /* Only the QR control / QR itself stays separate from the ticket. */
-.qr-control-section{padding:14px 10px 0;}
-.qr-button{display:block;width:100%;margin:0;border:0;border-radius:12px;background:#f9ffff;color:#079d8f;padding:15px;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 6px 18px #00000014;}
-.qr-section{margin:14px 10px 4px;}
+.qr-control-section {
+  padding: 14px 10px 0;
+}
 
-@media(max-width:480px){
-  .ticket-expiry{margin-left:-15px;margin-right:-15px;padding-left:15px;padding-right:15px;}
-  .expiry-section{display:none;}
+.qr-button {
+  display: block;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-radius: 12px;
+  background: #f9ffff;
+  color: #079d8f;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 18px #00000014;
+}
+
+.qr-section {
+  margin: 14px 10px 4px;
+}
+
+@media(max-width:480px) {
+  .ticket-expiry {
+    margin-left: -15px;
+    margin-right: -15px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .expiry-section {
+    display: none;
+  }
 }
 
 
@@ -125,25 +649,255 @@ input{width:100%;margin-top:6px;padding:12px;border:1px solid #d3dee2;border-rad
   font: inherit;
   outline: none;
 }
+
 .booking-panel select:focus {
   border-color: #2878ff;
-  box-shadow: 0 0 0 3px rgba(40,120,255,.12);
+  box-shadow: 0 0 0 3px rgba(40, 120, 255, .12);
 }
 
 /* Login + account management */
-.login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:#edf3f5}
-.login-card{width:min(390px,94%);background:#fff;border-radius:18px;padding:30px;box-shadow:0 15px 45px #0002}
-.login-card h1{text-align:center;font-size:24px;margin:0 0 24px;color:#263238}
-.login-card label,.admin-panel label{display:block;margin:12px 0;font-size:13px;font-weight:700;color:#607078}
-.login-card input,.admin-panel input{width:100%;margin-top:6px;padding:12px;border:1px solid #d3dee2;border-radius:9px;font-size:15px}
-.login-card button,.admin-panel button,.account-bar button{border:0;border-radius:10px;padding:12px 15px;background:#08bca8;color:#fff;font-weight:800;cursor:pointer}
-.login-card button{width:100%;margin-top:12px}
-.login-error{color:#d62828;text-align:center;min-height:18px;font-size:13px;font-weight:700}
-.account-bar{grid-column:1/-1;background:#fff;border-radius:14px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 8px 25px #00000012}
-.account-bar>div{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
-.account-bar button{padding:9px 11px;font-size:12px}
-.admin-panel{grid-column:1/-1;background:#fff;border-radius:16px;padding:20px;box-shadow:0 10px 30px #00000012}
-.admin-panel h2{margin:0 0 14px}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.admin-grid form{border-right:1px solid #e1e8ea;padding-right:20px}.admin-panel h3{margin:5px 0 12px}.admin-panel form button{width:100%;margin-top:8px}.member-row,.history-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px;border:1px solid #e0e7e9;border-radius:10px;margin:8px 0}.member-row small,.history-row span,.history-row small{display:block;color:#708087;font-size:12px;margin-top:4px}.member-row button{background:#607d8b;font-size:11px;padding:8px}.muted{color:#78909c;font-size:13px}
-.modal{position:fixed;inset:0;background:#0008;display:flex;align-items:center;justify-content:center;padding:18px;z-index:100}.modal[hidden],#mainApp[hidden],#loginScreen[hidden]{display:none}.modal-card{position:relative;background:#fff;border-radius:16px;width:min(620px,100%);max-height:85vh;overflow:auto;padding:24px;box-shadow:0 20px 60px #0005}.small-modal{width:min(390px,100%)}.modal-close{position:absolute;right:10px;top:7px;border:0;background:transparent;font-size:28px;cursor:pointer;color:#607078}.modal-card h2{margin-top:0}.history-row strong{white-space:nowrap}
-@media(max-width:850px){.account-bar,.admin-panel{grid-column:1}.admin-grid{grid-template-columns:1fr}.admin-grid form{border-right:0;border-bottom:1px solid #e1e8ea;padding-right:0;padding-bottom:16px}}
-@media(max-width:480px){.account-bar{align-items:flex-start;flex-direction:column}.account-bar>div{width:100%;justify-content:flex-start}.account-bar button{flex:1}.login-card{padding:24px}}
+.login-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: #edf3f5
+}
+
+.login-card {
+  width: min(390px, 94%);
+  background: #fff;
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 15px 45px #0002
+}
+
+.login-card h1 {
+  text-align: center;
+  font-size: 24px;
+  margin: 0 0 24px;
+  color: #263238
+}
+
+.login-card label,
+.admin-panel label {
+  display: block;
+  margin: 12px 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #607078
+}
+
+.login-card input,
+.admin-panel input {
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px;
+  border: 1px solid #d3dee2;
+  border-radius: 9px;
+  font-size: 15px
+}
+
+.login-card button,
+.admin-panel button,
+.account-bar button {
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 15px;
+  background: #08bca8;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer
+}
+
+.login-card button {
+  width: 100%;
+  margin-top: 12px
+}
+
+.login-error {
+  color: #d62828;
+  text-align: center;
+  min-height: 18px;
+  font-size: 13px;
+  font-weight: 700
+}
+
+.account-bar {
+  grid-column: 1/-1;
+  background: #fff;
+  border-radius: 14px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-shadow: 0 8px 25px #00000012
+}
+
+.account-bar>div {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  justify-content: flex-end
+}
+
+.account-bar button {
+  padding: 9px 11px;
+  font-size: 12px
+}
+
+.admin-panel {
+  grid-column: 1/-1;
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 30px #00000012
+}
+
+.admin-panel h2 {
+  margin: 0 0 14px
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px
+}
+
+.admin-grid form {
+  border-right: 1px solid #e1e8ea;
+  padding-right: 20px
+}
+
+.admin-panel h3 {
+  margin: 5px 0 12px
+}
+
+.admin-panel form button {
+  width: 100%;
+  margin-top: 8px
+}
+
+.member-row,
+.history-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #e0e7e9;
+  border-radius: 10px;
+  margin: 8px 0
+}
+
+.member-row small,
+.history-row span,
+.history-row small {
+  display: block;
+  color: #708087;
+  font-size: 12px;
+  margin-top: 4px
+}
+
+.member-row button {
+  background: #607d8b;
+  font-size: 11px;
+  padding: 8px
+}
+
+.muted {
+  color: #78909c;
+  font-size: 13px
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: #0008;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  z-index: 100
+}
+
+.modal[hidden],
+#mainApp[hidden],
+#loginScreen[hidden] {
+  display: none
+}
+
+.modal-card {
+  position: relative;
+  background: #fff;
+  border-radius: 16px;
+  width: min(620px, 100%);
+  max-height: 85vh;
+  overflow: auto;
+  padding: 24px;
+  box-shadow: 0 20px 60px #0005
+}
+
+.small-modal {
+  width: min(390px, 100%)
+}
+
+.modal-close {
+  position: absolute;
+  right: 10px;
+  top: 7px;
+  border: 0;
+  background: transparent;
+  font-size: 28px;
+  cursor: pointer;
+  color: #607078
+}
+
+.modal-card h2 {
+  margin-top: 0
+}
+
+.history-row strong {
+  white-space: nowrap
+}
+
+@media(max-width:850px) {
+
+  .account-bar,
+  .admin-panel {
+    grid-column: 1
+  }
+
+  .admin-grid {
+    grid-template-columns: 1fr
+  }
+
+  .admin-grid form {
+    border-right: 0;
+    border-bottom: 1px solid #e1e8ea;
+    padding-right: 0;
+    padding-bottom: 16px
+  }
+}
+
+@media(max-width:480px) {
+  .account-bar {
+    align-items: flex-start;
+    flex-direction: column
+  }
+
+  .account-bar>div {
+    width: 100%;
+    justify-content: flex-start
+  }
+
+  .account-bar button {
+    flex: 1
+  }
+
+  .login-card {
+    padding: 24px
+  }
+}
