@@ -1,69 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PMPML Ticket</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PMPML Ticket</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<main class="app ticket-page-app">
-<section class="ticket-wrap" style="display:flex;">
-<div class="ticket">
-  <div class="topbar">
-    <button class="close-btn" id="backBtn" aria-label="Back">×</button>
-    <div class="top-links"><u>Need Help?</u><u>All tickets</u></div>
-  </div>
-  <div class="ticket-card">
-    <div class="company">पुणे महानगर परिवहन महामंडळ लि.</div>
-    <div class="ticket-content">
-      <div class="summary">
-        <div><small>Route</small><strong id="tRoute">291</strong></div>
-        <div class="center"><small>Tickets count</small><strong id="tCount">1F</strong></div>
-        <div class="right"><small>Fare</small><strong>₹<span id="tFare">20</span></strong></div>
+  <main class="app ticket-page-app">
+    <section class="ticket-wrap" style="display:flex;">
+      <div class="ticket">
+        <div class="topbar">
+          <button class="close-btn" id="backBtn" aria-label="Back">×</button>
+          <div class="top-links"><u>Need Help?</u><u>All tickets</u></div>
+        </div>
+        <div class="ticket-card">
+          <div class="company">पुणे महानगर परिवहन महामंडळ लि.</div>
+          <div class="ticket-content">
+            <div class="summary">
+              <div><small>Route</small><strong id="tRoute">291</strong></div>
+              <div class="center"><small>Tickets count</small><strong id="tCount">1F</strong></div>
+              <div class="right"><small>Fare</small><strong>₹<span id="tFare">20</span></strong></div>
+            </div>
+            <div class="route"><span id="tFrom">Katraj</span><b>→</b><span id="tTo">Hadapsar Gadital</span></div>
+            <i class="cut cut-left"></i><i class="cut cut-right"></i>
+            <div class="dashed"></div>
+            <div class="times">
+              <div><small>Booking Time</small><b id="tBooking"></b></div>
+              <div><small>Validity Time</small><b id="tValidity"></b></div>
+            </div>
+            <div class="ticket-id" id="ticketId"></div>
+            <div class="dashed"></div>
+            <div class="logo-area">
+              <div class="outer-ring"></div>
+              <div class="inner-ring"></div>
+              <img class="pmpml-logo" src="pmpml-logo.png" alt="PMPML Logo">
+            </div>
+            <div class="ticket-expiry" aria-live="polite">
+              <div class="expiry">Expires in <span id="countdown">00:00:00</span></div>
+            </div>
+          </div>
+        </div>
+        <section class="qr-control-section"><button class="qr-button" id="showQr">▦ &nbsp; Show QR code</button>
+        </section>
+        <section class="qr-section" id="qrArea" aria-hidden="true">
+          <div class="qr-box">
+            <div class="qr-title">Ticket QR Code</div>
+            <div id="qrcode"></div>
+            <div class="qr-label">SCAN TICKET QR</div>
+          </div>
+        </section>
       </div>
-      <div class="route"><span id="tFrom">Katraj</span><b>→</b><span id="tTo">Hadapsar Gadital</span></div>
-      <i class="cut cut-left"></i><i class="cut cut-right"></i>
-      <div class="dashed"></div>
-      <div class="times">
-        <div><small>Booking Time</small><b id="tBooking"></b></div>
-        <div><small>Validity Time</small><b id="tValidity"></b></div>
-      </div>
-      <div class="ticket-id" id="ticketId"></div>
-      <div class="dashed"></div>
-      <div class="logo-area">
-        <div class="outer-ring"></div><div class="inner-ring"></div>
-        <img class="pmpml-logo" src="pmpml-logo.png" alt="PMPML Logo">
-      </div>
-      <div class="ticket-expiry" aria-live="polite">
-        <div class="expiry">Expires in <span id="countdown">00:00:00</span></div>
-        <div class="ticket-status" id="ticketStatus">✓ VALID</div>
-      </div>
-    </div>
-  </div>
-  <section class="qr-control-section"><button class="qr-button" id="showQr">▦ &nbsp; Show QR code</button></section>
-  <section class="qr-section" id="qrArea" aria-hidden="true">
-    <div class="qr-box"><div class="qr-title">Ticket QR Code</div><div id="qrcode"></div><div class="qr-label">SCAN TICKET QR</div></div>
-  </section>
-</div>
-</section>
-</main>
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-<script>
-const $=id=>document.getElementById(id), ticket=JSON.parse(localStorage.getItem('pmpml_latest_ticket_v1')||'null');
-let timer=null, expiryAt=0;
-function pad(n){return String(n).padStart(2,'0')}
-function fmt(d){const day=pad(d.getDate()),mon=d.toLocaleString('en-IN',{month:'short'}),yy=String(d.getFullYear()).slice(-2);let h=d.getHours();const ap=h>=12?'PM':'AM';h=h%12||12;return `${day} ${mon}, ${yy} | ${pad(h)}:${pad(d.getMinutes())} ${ap}`}
-function expired(){clearInterval(timer);$('countdown').textContent='00:00:00';$('ticketStatus').textContent='TICKET INVALID';$('ticketStatus').classList.add('invalid');document.querySelector('.ticket-card').classList.add('expired');$('qrArea').classList.remove('open');$('qrArea').setAttribute('aria-hidden','true');$('showQr').textContent='▦  Show QR code';}
-function countdown(end){clearInterval(timer);expiryAt=new Date(end).getTime();const tick=()=>{const left=Math.max(0,Math.ceil((expiryAt-Date.now())/1000));const h=Math.floor(left/3600),m=Math.floor(left%3600/60),s=left%60;$('countdown').textContent=`${pad(h)}:${pad(m)}:${pad(s)}`;if(left===0)expired()};tick();timer=setInterval(tick,1000)}
-if(ticket){
-$('tRoute').textContent=ticket.route;$('tCount').textContent=`${ticket.count}F`;$('tFare').textContent=ticket.fare;$('tFrom').textContent=ticket.from;$('tTo').textContent=ticket.to;$('tBooking').textContent=fmt(new Date(ticket.bookingTime));$('tValidity').textContent=fmt(new Date(ticket.validityTime));$('ticketId').textContent=ticket.ticketCode;
-if(window.QRCode)new QRCode($('qrcode'),{text:JSON.stringify(ticket),width:170,height:170,correctLevel:QRCode.CorrectLevel.M});
-if(new Date(ticket.validityTime).getTime()>Date.now())countdown(ticket.validityTime);else expired();
-}else{expired()}
-$('showQr').addEventListener('click',()=>{if(document.querySelector('.ticket-card').classList.contains('expired'))return;const open=!$('qrArea').classList.contains('open');$('qrArea').classList.toggle('open',open);$('qrArea').setAttribute('aria-hidden',String(!open));$('showQr').textContent=open?'▦  Hide QR code':'▦  Show QR code';if(open)$('qrArea').scrollIntoView({behavior:'smooth',block:'nearest'})});
-$('backBtn').addEventListener('click',()=>{clearInterval(timer);window.location.href='index.html'});
-document.addEventListener('visibilitychange',()=>{if(!document.hidden&&expiryAt){if(expiryAt>Date.now())countdown(expiryAt);else expired()}});
-</script>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script>
+    const $ = id => document.getElementById(id), ticket = JSON.parse(localStorage.getItem('pmpml_latest_ticket_v1') || 'null');
+    let timer = null, expiryAt = 0;
+    function pad(n) { return String(n).padStart(2, '0') }
+    function fmt(d) { const day = pad(d.getDate()), mon = d.toLocaleString('en-IN', { month: 'short' }), yy = String(d.getFullYear()).slice(-2); let h = d.getHours(); const ap = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12; return `${day} ${mon}, ${yy} | ${pad(h)}:${pad(d.getMinutes())} ${ap}` }
+    function expired() { clearInterval(timer); $('countdown').textContent = '00:00:00'; document.querySelector('.ticket-card').classList.add('expired'); $('qrArea').classList.remove('open'); $('qrArea').setAttribute('aria-hidden', 'true'); $('showQr').textContent = '▦  Show QR code'; }
+    function countdown(end) { clearInterval(timer); expiryAt = new Date(end).getTime(); const tick = () => { const left = Math.max(0, Math.ceil((expiryAt - Date.now()) / 1000)); const h = Math.floor(left / 3600), m = Math.floor(left % 3600 / 60), s = left % 60; $('countdown').textContent = `${pad(h)}:${pad(m)}:${pad(s)}`; if (left === 0) expired() }; tick(); timer = setInterval(tick, 1000) }
+    if (ticket) {
+      $('tRoute').textContent = ticket.route; $('tCount').textContent = `${ticket.count}F`; $('tFare').textContent = ticket.fare; $('tFrom').textContent = ticket.from; $('tTo').textContent = ticket.to; $('tBooking').textContent = fmt(new Date(ticket.bookingTime)); $('tValidity').textContent = fmt(new Date(ticket.validityTime)); $('ticketId').textContent = ticket.ticketCode;
+      if (window.QRCode) new QRCode($('qrcode'), { text: JSON.stringify(ticket), width: 170, height: 170, correctLevel: QRCode.CorrectLevel.M });
+      if (new Date(ticket.validityTime).getTime() > Date.now()) countdown(ticket.validityTime); else expired();
+    } else { expired() }
+    $('showQr').addEventListener('click', () => { if (document.querySelector('.ticket-card').classList.contains('expired')) return; const open = !$('qrArea').classList.contains('open'); $('qrArea').classList.toggle('open', open); $('qrArea').setAttribute('aria-hidden', String(!open)); $('showQr').textContent = open ? '▦  Hide QR code' : '▦  Show QR code'; if (open) $('qrArea').scrollIntoView({ behavior: 'smooth', block: 'nearest' }) });
+    $('backBtn').addEventListener('click', () => { clearInterval(timer); window.location.href = 'index.html' });
+    document.addEventListener('visibilitychange', () => { if (!document.hidden && expiryAt) { if (expiryAt > Date.now()) countdown(expiryAt); else expired() } });
+  </script>
 </body>
+
 </html>
