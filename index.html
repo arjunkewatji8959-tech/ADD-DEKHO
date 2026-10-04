@@ -1,77 +1,168 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PMPML Ticket</title>
+  <title>PMPML Ticket Booking Demo</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <main class="app ticket-page-app">
-    <section class="ticket-wrap" style="display:flex;">
-      <div class="ticket">
-        <div class="topbar">
-          <button class="close-btn" id="backBtn" aria-label="Back">×</button>
-          <div class="top-links"><u>Need Help?</u><u>All tickets</u></div>
-        </div>
-        <div class="ticket-card">
-          <div class="company">पुणे महानगर परिवहन महामंडळ लि.</div>
-          <div class="ticket-content">
-            <div class="summary">
-              <div><small>Route</small><strong id="tRoute">291</strong></div>
-              <div class="center"><small>Tickets count</small><strong id="tCount">1F</strong></div>
-              <div class="right"><small>Fare</small><strong>₹<span id="tFare">20</span></strong></div>
-            </div>
-            <div class="route"><span id="tFrom">Katraj</span><b>→</b><span id="tTo">Hadapsar Gadital</span></div>
-            <i class="cut cut-left"></i><i class="cut cut-right"></i>
-            <div class="dashed"></div>
-            <div class="times">
-              <div><small>Booking Time</small><b id="tBooking"></b></div>
-              <div><small>Validity Time</small><b id="tValidity"></b></div>
-            </div>
-            <div class="ticket-id" id="ticketId"></div>
-            <div class="dashed"></div>
-            <div class="logo-area">
-              <div class="outer-ring"></div>
-              <div class="inner-ring"></div>
-              <img class="pmpml-logo" src="pmpml-logo.png" alt="PMPML Logo">
-            </div>
-            <div class="ticket-expiry" aria-live="polite">
-              <div class="expiry">Expires in <span id="countdown">00:00:00</span></div>
-            </div>
-          </div>
-        </div>
-        <section class="qr-control-section"><button class="qr-button" id="showQr">▦ &nbsp; Show QR code</button>
-        </section>
-        <section class="qr-section" id="qrArea" aria-hidden="true">
-          <div class="qr-box">
-            <div class="qr-title">Ticket QR Code</div>
-            <div id="qrcode"></div>
-            <div class="qr-label">SCAN TICKET QR</div>
-          </div>
-        </section>
+  <section id="loginScreen" class="login-screen">
+    <div class="login-card">
+      <h1>Login Please Sir / Mam</h1>
+      <form id="loginForm">
+        <label>Login ID<input id="loginId" autocomplete="username" required></label>
+        <label>Password<input id="loginPassword" type="password" autocomplete="current-password" required></label>
+        <button type="submit">LOGIN</button>
+        <p id="loginError" class="login-error"></p>
+      </form>
+    </div>
+  </section>
+
+  <main class="app" id="mainApp" hidden>
+    <div class="account-bar">
+      <span id="welcomeText"></span>
+      <div>
+        <button id="historyBtn" type="button">Ticket History</button>
+        <button id="changePasswordBtn" type="button">Edit Password</button>
+        <button id="logoutBtn" type="button">Logout</button>
       </div>
+    </div>
+    <div id="adminPanel" class="admin-panel" hidden>
+      <h2>Admin Panel</h2>
+      <div class="admin-grid">
+        <form id="memberForm">
+          <h3>New Member</h3>
+          <label>Name<input id="memberName" required></label>
+          <label>Member ID<input id="memberId" required></label>
+          <label>Password<input id="memberPassword" required></label>
+          <button type="submit">CREATE MEMBER</button>
+          <p id="memberMsg"></p>
+        </form>
+        <div>
+          <h3>Members</h3>
+          <div id="membersList"></div>
+        </div>
+      </div>
+    </div>
+
+    <section class="booking-panel">
+      <div class="brand">पुणे महानगर परिवहन महामंडळ लि.</div>
+      <h1>Ticket Booking Demo</h1>
+      <p>Route और fare भरकर demo ticket generate करें.</p>
+      <form id="bookingForm">
+        <div class="grid">
+          <label>Route<input id="route" value="291" required></label>
+          <label>Tickets count<input id="count" type="number" value="1" min="1" required></label>
+          <label>From<select id="from" required>
+              <option value="Katraj">Katraj</option>
+              <option value="Rajas Society Corner">Rajas Society Corner</option>
+              <option value="Mauli Garden">Mauli Garden</option>
+              <option value="Sundarban">Sundarban</option>
+              <option value="Paramount Garden">Paramount Garden</option>
+              <option value="Gokul Nagar">Gokul Nagar</option>
+              <option value="Shatrunjay Mandir">Shatrunjay Mandir</option>
+              <option value="Hill View Society">Hill View Society</option>
+              <option value="Smashan Bhumi Kondhwa">Smashan Bhumi Kondhwa</option>
+              <option value="Thosar Nagar">Thosar Nagar</option>
+              <option value="Khadi Machine Chowk">Khadi Machine Chowk</option>
+              <option value="Ramdas Maral">Ramdas Maral</option>
+              <option value="Talab Company">Talab Company</option>
+              <option value="Kondhwa Police Station">Kondhwa Police Station</option>
+              <option value="Sheetal Petrol Pump">Sheetal Petrol Pump</option>
+              <option value="Kondhwa Khurd">Kondhwa Khurd</option>
+              <option value="Kondhwa School">Kondhwa School</option>
+              <option value="UCO Bank">UCO Bank</option>
+              <option value="Kamela">Kamela</option>
+              <option value="Indira Vasahat">Indira Vasahat</option>
+              <option value="Borade Nagar">Borade Nagar</option>
+              <option value="ABC Farm">ABC Farm</option>
+              <option value="Kedari Nagar Chowk">Kedari Nagar Chowk</option>
+              <option value="Jagtap Chowk">Jagtap Chowk</option>
+              <option value="Jambhulkar Nagar">Jambhulkar Nagar</option>
+              <option value="Shivarkar Garden">Shivarkar Garden</option>
+              <option value="Parmar Nagar">Parmar Nagar</option>
+              <option value="Fatimanagar">Fatimanagar</option>
+              <option value="Kalubai Mandir">Kalubai Mandir</option>
+              <option value="Ramtekdi">Ramtekdi</option>
+              <option value="Vaiduwadi">Vaiduwadi</option>
+              <option value="Magarpatta Dawakhana">Magarpatta Dawakhana</option>
+              <option value="Hadapsar Gaon">Hadapsar Gaon</option>
+              <option value="Tupe Hospital">Tupe Hospital</option>
+              <option value="Hadapsar Gadital">Hadapsar Gadital</option>
+            </select></label>
+          <label>To<select id="to" required>
+              <option value="Katraj">Katraj</option>
+              <option value="Rajas Society Corner">Rajas Society Corner</option>
+              <option value="Mauli Garden">Mauli Garden</option>
+              <option value="Sundarban">Sundarban</option>
+              <option value="Paramount Garden">Paramount Garden</option>
+              <option value="Gokul Nagar">Gokul Nagar</option>
+              <option value="Shatrunjay Mandir">Shatrunjay Mandir</option>
+              <option value="Hill View Society">Hill View Society</option>
+              <option value="Smashan Bhumi Kondhwa">Smashan Bhumi Kondhwa</option>
+              <option value="Thosar Nagar">Thosar Nagar</option>
+              <option value="Khadi Machine Chowk">Khadi Machine Chowk</option>
+              <option value="Ramdas Maral">Ramdas Maral</option>
+              <option value="Talab Company">Talab Company</option>
+              <option value="Kondhwa Police Station">Kondhwa Police Station</option>
+              <option value="Sheetal Petrol Pump">Sheetal Petrol Pump</option>
+              <option value="Kondhwa Khurd">Kondhwa Khurd</option>
+              <option value="Kondhwa School">Kondhwa School</option>
+              <option value="UCO Bank">UCO Bank</option>
+              <option value="Kamela">Kamela</option>
+              <option value="Indira Vasahat">Indira Vasahat</option>
+              <option value="Borade Nagar">Borade Nagar</option>
+              <option value="ABC Farm">ABC Farm</option>
+              <option value="Kedari Nagar Chowk">Kedari Nagar Chowk</option>
+              <option value="Jagtap Chowk">Jagtap Chowk</option>
+              <option value="Jambhulkar Nagar">Jambhulkar Nagar</option>
+              <option value="Shivarkar Garden">Shivarkar Garden</option>
+              <option value="Parmar Nagar">Parmar Nagar</option>
+              <option value="Fatimanagar">Fatimanagar</option>
+              <option value="Kalubai Mandir">Kalubai Mandir</option>
+              <option value="Ramtekdi">Ramtekdi</option>
+              <option value="Vaiduwadi">Vaiduwadi</option>
+              <option value="Magarpatta Dawakhana">Magarpatta Dawakhana</option>
+              <option value="Hadapsar Gaon">Hadapsar Gaon</option>
+              <option value="Tupe Hospital">Tupe Hospital</option>
+              <option value="Hadapsar Gadital">Hadapsar Gadital</option>
+            </select></label>
+          <label>Fare (₹)<input id="fare" type="number" value="20" min="1" required></label>
+          <label>Validity (minutes)<input id="validity" type="number" value="60" min="60" max="60" readonly
+              required></label>
+        </div>
+        <button type="submit">BOOK NOW</button>
+      </form>
     </section>
+
+
   </main>
+
+  <div id="historyModal" class="modal" hidden>
+    <div class="modal-card">
+      <button id="historyClose" class="modal-close" type="button">×</button>
+      <h2>Ticket History</h2>
+      <div id="historyList"></div>
+    </div>
+  </div>
+
+  <div id="passwordModal" class="modal" hidden>
+    <div class="modal-card small-modal">
+      <button id="passwordClose" class="modal-close" type="button">×</button>
+      <h2>Edit Password</h2>
+      <form id="passwordForm">
+        <label>New Password<input id="newPassword" type="password" required></label>
+        <button type="submit">SAVE PASSWORD</button>
+        <p id="passwordMsg"></p>
+      </form>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-  <script>
-    const $ = id => document.getElementById(id), ticket = JSON.parse(localStorage.getItem('pmpml_latest_ticket_v1') || 'null');
-    let timer = null, expiryAt = 0;
-    function pad(n) { return String(n).padStart(2, '0') }
-    function fmt(d) { const day = pad(d.getDate()), mon = d.toLocaleString('en-IN', { month: 'short' }), yy = String(d.getFullYear()).slice(-2); let h = d.getHours(); const ap = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12; return `${day} ${mon}, ${yy} | ${pad(h)}:${pad(d.getMinutes())} ${ap}` }
-    function expired() { clearInterval(timer); $('countdown').textContent = '00:00:00'; document.querySelector('.ticket-card').classList.add('expired'); $('qrArea').classList.remove('open'); $('qrArea').setAttribute('aria-hidden', 'true'); $('showQr').textContent = '▦  Show QR code'; }
-    function countdown(end) { clearInterval(timer); expiryAt = new Date(end).getTime(); const tick = () => { const left = Math.max(0, Math.ceil((expiryAt - Date.now()) / 1000)); const h = Math.floor(left / 3600), m = Math.floor(left % 3600 / 60), s = left % 60; $('countdown').textContent = `${pad(h)}:${pad(m)}:${pad(s)}`; if (left === 0) expired() }; tick(); timer = setInterval(tick, 1000) }
-    if (ticket) {
-      $('tRoute').textContent = ticket.route; $('tCount').textContent = `${ticket.count}F`; $('tFare').textContent = ticket.fare; $('tFrom').textContent = ticket.from; $('tTo').textContent = ticket.to; $('tBooking').textContent = fmt(new Date(ticket.bookingTime)); $('tValidity').textContent = fmt(new Date(ticket.validityTime)); $('ticketId').textContent = ticket.ticketCode;
-      if (window.QRCode) new QRCode($('qrcode'), { text: JSON.stringify(ticket), width: 170, height: 170, correctLevel: QRCode.CorrectLevel.M });
-      if (new Date(ticket.validityTime).getTime() > Date.now()) countdown(ticket.validityTime); else expired();
-    } else { expired() }
-    $('showQr').addEventListener('click', () => { if (document.querySelector('.ticket-card').classList.contains('expired')) return; const open = !$('qrArea').classList.contains('open'); $('qrArea').classList.toggle('open', open); $('qrArea').setAttribute('aria-hidden', String(!open)); $('showQr').textContent = open ? '▦  Hide QR code' : '▦  Show QR code'; if (open) $('qrArea').scrollIntoView({ behavior: 'smooth', block: 'nearest' }) });
-    $('backBtn').addEventListener('click', () => { clearInterval(timer); window.location.href = 'index.html' });
-    document.addEventListener('visibilitychange', () => { if (!document.hidden && expiryAt) { if (expiryAt > Date.now()) countdown(expiryAt); else expired() } });
-  </script>
+  <script src="script.js"></script>
 </body>
 
 </html>
