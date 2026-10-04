@@ -9,12 +9,6 @@ const mainApp = $("mainApp");
 const loginForm = $("loginForm");
 const loginError = $("loginError");
 const form = $("bookingForm");
-const qrArea = $("qrArea");
-const showQr = $("showQr");
-const ticketCard = document.querySelector(".ticket-card");
-const statusEl = $("ticketStatus");
-let timer = null;
-let expiryAt = null;
 let currentUser = null;
 
 function getMembers(){ return JSON.parse(localStorage.getItem(MEMBERS_KEY) || "[]"); }
@@ -32,20 +26,6 @@ function makeTicketCode(date){
   for(let i=0;i<6;i++) series+=chars[Math.floor(Math.random()*chars.length)];
   return `${String(date.getFullYear()).slice(-2)}${pad(date.getMonth()+1)}${pad(date.getDate())}${pad(date.getHours())}${pad(date.getMinutes())}${series}`;
 }
-function setExpired(){
-  clearInterval(timer); timer=null; $("countdown").textContent="00:00:00"; statusEl.textContent="TICKET INVALID";
-  statusEl.classList.add("invalid"); ticketCard.classList.add("expired"); qrArea.classList.remove("open"); qrArea.setAttribute("aria-hidden","true"); showQr.textContent="▦  Show QR code";
-}
-function startCountdown(endTime){
-  clearInterval(timer); expiryAt=endTime instanceof Date?endTime.getTime():Number(endTime);
-  statusEl.textContent="✓ VALID"; statusEl.classList.remove("invalid"); ticketCard.classList.remove("expired");
-  const tick=()=>{ const left=Math.max(0,Math.ceil((expiryAt-Date.now())/1000));
-    const h=Math.floor(left/3600),m=Math.floor((left%3600)/60),sec=left%60;
-    $("countdown").textContent=`${pad(h)}:${pad(m)}:${pad(sec)}`; if(left===0)setExpired(); };
-  tick(); timer=setInterval(tick,1000);
-}
-document.addEventListener("visibilitychange",()=>{ if(!document.hidden && expiryAt){ if(expiryAt>Date.now())startCountdown(expiryAt); else setExpired(); }});
-
 function showApp(user){
   currentUser=user; loginScreen.hidden=true; mainApp.hidden=false;
   $("welcomeText").textContent=`Welcome, ${user.name || "Admin"}`;
@@ -70,20 +50,12 @@ form.addEventListener("submit",e=>{
   const route=$("route").value.trim(), count=Math.max(1,Number($("count").value));
   const from=$("from").value.trim(), to=$("to").value.trim(), fare=Math.max(1,Number($("fare").value));
   const valid=60, bookingTime=new Date(), validityTime=new Date(bookingTime.getTime()+valid*60*1000), ticketCode=makeTicketCode(bookingTime);
-  $("tRoute").textContent=route; $("tCount").textContent=`${count}F`; $("tFare").textContent=fare*count;
-  $("tFrom").textContent=from; $("tTo").textContent=to; $("tBooking").textContent=fmt(bookingTime); $("tValidity").textContent=fmt(validityTime); $("ticketId").textContent=ticketCode;
-  $("qrcode").innerHTML="";
-  if(window.QRCode)new QRCode($("qrcode"),{text:JSON.stringify({ticket:ticketCode,route,from,to,bookingTime:bookingTime.toISOString(),validityTime:validityTime.toISOString(),userId:currentUser.id}),width:170,height:170,correctLevel:QRCode.CorrectLevel.M});
-  qrArea.classList.remove("open"); qrArea.setAttribute("aria-hidden","true"); showQr.textContent="▦  Show QR code"; startCountdown(validityTime);
   const tickets=getTickets(); tickets.unshift({ticketCode,route,count,from,to,fare:fare*count,bookingTime:bookingTime.toISOString(),validityTime:validityTime.toISOString(),userId:currentUser.id,userName:currentUser.name}); saveTickets(tickets);
-  renderHistory();
   localStorage.setItem("pmpml_latest_ticket_v1", JSON.stringify(tickets[0]));
   window.location.href="ticket.html";
 });
 
-showQr.addEventListener("click",()=>{ if(ticketCard.classList.contains("expired"))return; const open=!qrArea.classList.contains("open"); qrArea.classList.toggle("open",open); qrArea.setAttribute("aria-hidden",String(!open)); showQr.textContent=open?"▦  Hide QR code":"▦  Show QR code"; if(open)qrArea.scrollIntoView({behavior:"smooth",block:"nearest"}); });
-
-$("logoutBtn").addEventListener("click",()=>{ currentUser=null; clearInterval(timer); expiryAt=null; mainApp.hidden=true; loginScreen.hidden=false; loginForm.reset(); loginError.textContent=""; });
+$("logoutBtn").addEventListener("click",()=>{ currentUser=null; mainApp.hidden=true; loginScreen.hidden=false; loginForm.reset(); loginError.textContent=""; });
 $("historyBtn").addEventListener("click",()=>{renderHistory(); $("historyModal").hidden=false;});
 $("historyClose").addEventListener("click",()=>$("historyModal").hidden=true);
 $("passwordClose").addEventListener("click",()=>$("passwordModal").hidden=true);
