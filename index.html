@@ -1,7 +1,164 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Add Dekho K — Watch & Earn</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"><link rel="stylesheet" href="style.css"></head><body>
-<header class="topbar"><div class="brand"><img src="add-dekho-k-logo-light.png"><div><b>Add Dekho K</b><small>WATCH • EARN • GROW</small></div></div><button class="ghost" id="logoutBtn" hidden>Logout</button></header>
-<main><section id="authView" class="auth card"><div class="hero-mini"><img class="auth-logo" src="add-dekho-k-logo-light.png"><h1>Watch. Earn. Withdraw.</h1><p>One platform for advertisers and ad viewers.</p></div><div class="tabs"><button class="tab active" data-mode="login">Login</button><button class="tab" data-mode="register">Register</button></div>
-<form id="authForm"><div id="regFields" hidden><input id="name" placeholder="Full name"><select id="role"><option value="viewer">I want to watch ads & earn</option><option value="client">I am an advertiser / client</option></select><input id="parentId" placeholder="Parent ID (optional)"></div><input id="loginId" placeholder="ID or Email" required><input id="password" type="password" placeholder="Password" required><button class="primary" id="authSubmit">Login</button></form><p id="authMsg" class="note"></p><p class="note">Viewer IDs and Client IDs are separate. Admin has a separate secure dashboard.</p></section>
-<section id="appView" hidden><div class="welcome"><div><p class="eyebrow" id="roleLabel">DASHBOARD</p><h1>Welcome, <span id="userName"></span></h1><p class="muted" id="userMeta"></p></div><div class="balance"><span id="balanceLabel">Total Earning</span><strong>₹<span id="balance">0</span></strong><small id="balanceSub">Available demo balance</small></div></div><div id="stats" class="grid stats"></div><div id="nav" class="navgrid"></div><div id="pageArea"></div><nav class="mobile-bottom" id="mobileNav" aria-label="Mobile navigation"></nav>
-<div id="moreSheet" class="more-sheet" aria-label="More dashboard pages"></div></section></main>
-<div class="modal" id="modal" hidden><div class="modalbox"><button class="close" onclick="closeModal()">×</button><div id="modalContent"></div></div></div><script src="app.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMPML Ticket Booking Demo</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<section id="loginScreen" class="login-screen">
+  <div class="login-card">
+    <h1>Login Please Sir / Mam</h1>
+    <form id="loginForm">
+      <label>Login ID<input id="loginId" autocomplete="username" required></label>
+      <label>Password<input id="loginPassword" type="password" autocomplete="current-password" required></label>
+      <button type="submit">LOGIN</button>
+      <p id="loginError" class="login-error"></p>
+    </form>
+  </div>
+</section>
+
+<main class="app" id="mainApp" hidden>
+<div class="account-bar">
+  <span id="welcomeText"></span>
+  <div>
+    <button id="historyBtn" type="button">Ticket History</button>
+    <button id="changePasswordBtn" type="button">Edit Password</button>
+    <button id="logoutBtn" type="button">Logout</button>
+  </div>
+</div>
+<div id="adminPanel" class="admin-panel" hidden>
+  <h2>Admin Panel</h2>
+  <div class="admin-grid">
+    <form id="memberForm">
+      <h3>New Member</h3>
+      <label>Name<input id="memberName" required></label>
+      <label>Member ID<input id="memberId" required></label>
+      <label>Password<input id="memberPassword" required></label>
+      <button type="submit">CREATE MEMBER</button>
+      <p id="memberMsg"></p>
+    </form>
+    <div>
+      <h3>Members</h3>
+      <div id="membersList"></div>
+    </div>
+  </div>
+</div>
+
+<section class="booking-panel">
+  <div class="brand">पुणे महानगर परिवहन महामंडळ लि.</div>
+  <h1>Ticket Booking Demo</h1>
+  <p>Route और fare भरकर demo ticket generate करें.</p>
+  <form id="bookingForm">
+    <div class="grid">
+      <label>Route<input id="route" value="291" required></label>
+      <label>Tickets count<input id="count" type="number" value="1" min="1" required></label>
+      <label>From<select id="from" required>
+          <option value="Katraj">Katraj</option>
+          <option value="Rajas Society Corner">Rajas Society Corner</option>
+          <option value="Mauli Garden">Mauli Garden</option>
+          <option value="Sundarban">Sundarban</option>
+          <option value="Paramount Garden">Paramount Garden</option>
+          <option value="Gokul Nagar">Gokul Nagar</option>
+          <option value="Shatrunjay Mandir">Shatrunjay Mandir</option>
+          <option value="Hill View Society">Hill View Society</option>
+          <option value="Smashan Bhumi Kondhwa">Smashan Bhumi Kondhwa</option>
+          <option value="Thosar Nagar">Thosar Nagar</option>
+          <option value="Khadi Machine Chowk">Khadi Machine Chowk</option>
+          <option value="Ramdas Maral">Ramdas Maral</option>
+          <option value="Talab Company">Talab Company</option>
+          <option value="Kondhwa Police Station">Kondhwa Police Station</option>
+          <option value="Sheetal Petrol Pump">Sheetal Petrol Pump</option>
+          <option value="Kondhwa Khurd">Kondhwa Khurd</option>
+          <option value="Kondhwa School">Kondhwa School</option>
+          <option value="UCO Bank">UCO Bank</option>
+          <option value="Kamela">Kamela</option>
+          <option value="Indira Vasahat">Indira Vasahat</option>
+          <option value="Borade Nagar">Borade Nagar</option>
+          <option value="ABC Farm">ABC Farm</option>
+          <option value="Kedari Nagar Chowk">Kedari Nagar Chowk</option>
+          <option value="Jagtap Chowk">Jagtap Chowk</option>
+          <option value="Jambhulkar Nagar">Jambhulkar Nagar</option>
+          <option value="Shivarkar Garden">Shivarkar Garden</option>
+          <option value="Parmar Nagar">Parmar Nagar</option>
+          <option value="Fatimanagar">Fatimanagar</option>
+          <option value="Kalubai Mandir">Kalubai Mandir</option>
+          <option value="Ramtekdi">Ramtekdi</option>
+          <option value="Vaiduwadi">Vaiduwadi</option>
+          <option value="Magarpatta Dawakhana">Magarpatta Dawakhana</option>
+          <option value="Hadapsar Gaon">Hadapsar Gaon</option>
+          <option value="Tupe Hospital">Tupe Hospital</option>
+          <option value="Hadapsar Gadital">Hadapsar Gadital</option>
+      </select></label>
+      <label>To<select id="to" required>
+          <option value="Katraj">Katraj</option>
+          <option value="Rajas Society Corner">Rajas Society Corner</option>
+          <option value="Mauli Garden">Mauli Garden</option>
+          <option value="Sundarban">Sundarban</option>
+          <option value="Paramount Garden">Paramount Garden</option>
+          <option value="Gokul Nagar">Gokul Nagar</option>
+          <option value="Shatrunjay Mandir">Shatrunjay Mandir</option>
+          <option value="Hill View Society">Hill View Society</option>
+          <option value="Smashan Bhumi Kondhwa">Smashan Bhumi Kondhwa</option>
+          <option value="Thosar Nagar">Thosar Nagar</option>
+          <option value="Khadi Machine Chowk">Khadi Machine Chowk</option>
+          <option value="Ramdas Maral">Ramdas Maral</option>
+          <option value="Talab Company">Talab Company</option>
+          <option value="Kondhwa Police Station">Kondhwa Police Station</option>
+          <option value="Sheetal Petrol Pump">Sheetal Petrol Pump</option>
+          <option value="Kondhwa Khurd">Kondhwa Khurd</option>
+          <option value="Kondhwa School">Kondhwa School</option>
+          <option value="UCO Bank">UCO Bank</option>
+          <option value="Kamela">Kamela</option>
+          <option value="Indira Vasahat">Indira Vasahat</option>
+          <option value="Borade Nagar">Borade Nagar</option>
+          <option value="ABC Farm">ABC Farm</option>
+          <option value="Kedari Nagar Chowk">Kedari Nagar Chowk</option>
+          <option value="Jagtap Chowk">Jagtap Chowk</option>
+          <option value="Jambhulkar Nagar">Jambhulkar Nagar</option>
+          <option value="Shivarkar Garden">Shivarkar Garden</option>
+          <option value="Parmar Nagar">Parmar Nagar</option>
+          <option value="Fatimanagar">Fatimanagar</option>
+          <option value="Kalubai Mandir">Kalubai Mandir</option>
+          <option value="Ramtekdi">Ramtekdi</option>
+          <option value="Vaiduwadi">Vaiduwadi</option>
+          <option value="Magarpatta Dawakhana">Magarpatta Dawakhana</option>
+          <option value="Hadapsar Gaon">Hadapsar Gaon</option>
+          <option value="Tupe Hospital">Tupe Hospital</option>
+          <option value="Hadapsar Gadital">Hadapsar Gadital</option>
+      </select></label>
+      <label>Fare (₹)<input id="fare" type="number" value="20" min="1" required></label>
+      <label>Validity (minutes)<input id="validity" type="number" value="60" min="60" max="60" readonly required></label>
+    </div>
+    <button type="submit">BOOK TICKET</button>
+  </form>
+</section>
+
+
+</main>
+
+<div id="historyModal" class="modal" hidden>
+  <div class="modal-card">
+    <button id="historyClose" class="modal-close" type="button">×</button>
+    <h2>Ticket History</h2>
+    <div id="historyList"></div>
+  </div>
+</div>
+
+<div id="passwordModal" class="modal" hidden>
+  <div class="modal-card small-modal">
+    <button id="passwordClose" class="modal-close" type="button">×</button>
+    <h2>Edit Password</h2>
+    <form id="passwordForm">
+      <label>New Password<input id="newPassword" type="password" required></label>
+      <button type="submit">SAVE PASSWORD</button>
+      <p id="passwordMsg"></p>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
