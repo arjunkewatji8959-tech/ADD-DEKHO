@@ -569,11 +569,11 @@ input {
 
 /* Keep expiry + VALID together inside the ticket. */
 .ticket-expiry {
-  margin: 4px -18px 0;
+  margin: 0 -18px -10px;
   padding: 12px 18px 15px;
-  border-top: 1px dashed #c5ced1;
+  border-radius: 0 0 18px 18px;
   text-align: center;
-  background: #f9fcfc;
+  background: #f1f3f4;
 }
 
 .ticket-expiry .expiry {
@@ -756,8 +756,59 @@ input {
   box-shadow: 0 10px 30px #00000012
 }
 
+.ticket {
+  width: 390px;
+  border-radius: 18px
+}
+
+.ticket-card {
+  background: #fff;
+  border-radius: 18px;
+}
+
+.ticket-content {
+  padding: 17px 16px 9px;
+}
+
+.route {
+  margin: 23px 0 21px;
+}
+
+.logo-area {
+  height: 160px;
+  background: #fff;
+}
+
+.ticket-expiry {
+  background: #f1f3f4;
+  display: block;
+  text-align: center;
+}
+
+.ticket-expiry .expiry {
+  text-align: center;
+}
+
+.ticket-expiry .expiry span {
+  font-weight: 400;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.pmpml-logo {
+  width: 145px;
+  height: 145px;
+}
+
 .admin-panel h2 {
   margin: 0 0 14px
+}
+
+@media(max-width:480px) {
+  .ticket {
+    border-radius: 18px;
+  }
+
 }
 
 .admin-grid {
