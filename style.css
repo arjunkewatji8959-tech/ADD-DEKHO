@@ -952,3 +952,81 @@ input {
     padding: 24px
   }
 }
+
+@media(max-width:600px) {
+  .ticket-page-app {
+    display: block;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    margin: 0;
+  }
+
+  .ticket-page-app .ticket-wrap {
+    min-height: 100vh;
+    min-height: 100dvh;
+    align-items: stretch;
+  }
+
+  .ticket-page-app .ticket {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    border-radius: 0;
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+    box-shadow: none;
+  }
+
+  .ticket-page-app .topbar {
+    flex: 0 0 54px;
+    height: 54px;
+  }
+
+  .ticket-page-app .ticket-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 0 8px;
+  }
+
+  .ticket-page-app .ticket-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(10px, 2.2vh, 17px) 14px 8px;
+  }
+
+  .ticket-page-app .route {
+    margin: clamp(10px, 2.5vh, 20px) 0;
+  }
+
+  .ticket-page-app .ticket-content > .dashed {
+    margin: clamp(8px, 1.8vh, 14px) 0;
+  }
+
+  .ticket-page-app .ticket-id {
+    margin: 12px 0;
+  }
+
+  .ticket-page-app .logo-area {
+    flex: 1;
+    height: auto;
+    min-height: clamp(100px, 18vh, 150px);
+  }
+
+  .ticket-page-app .pmpml-logo {
+    width: min(145px, 22vh);
+    height: min(145px, 22vh);
+  }
+
+  .ticket-page-app .ticket-expiry {
+    margin: 0 -14px -8px;
+    padding: 10px 14px 12px;
+  }
+
+  .ticket-page-app .qr-control-section {
+    padding: clamp(10px, 2vh, 18px) 8px 0;
+  }
+}
